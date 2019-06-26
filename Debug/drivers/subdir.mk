@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../drivers/DriverExample.c \
 ../drivers/fsl_clock.c \
 ../drivers/fsl_common.c \
 ../drivers/fsl_flash.c \
@@ -14,6 +15,7 @@ C_SRCS += \
 ../drivers/fsl_smc.c 
 
 OBJS += \
+./drivers/DriverExample.o \
 ./drivers/fsl_clock.o \
 ./drivers/fsl_common.o \
 ./drivers/fsl_flash.o \
@@ -24,6 +26,7 @@ OBJS += \
 ./drivers/fsl_smc.o 
 
 C_DEPS += \
+./drivers/DriverExample.d \
 ./drivers/fsl_clock.d \
 ./drivers/fsl_common.d \
 ./drivers/fsl_flash.d \
