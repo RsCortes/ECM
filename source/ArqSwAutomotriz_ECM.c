@@ -39,6 +39,7 @@
 #include "clock_config.h"
 #include "MKW36Z4.h"
 #include "fsl_debug_console.h"
+#include "DriverExample.h"
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
@@ -55,13 +56,10 @@ int main(void) {
   	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
-    PRINTF("Hello World\n");
 
-    /* Force the counter to be placed into memory. */
-    volatile static int i = 0 ;
-    /* Enter an infinite loop, just incrementing a counter. */
     while(1) {
-        i++ ;
+        /*Calling Driver Test*/
+    	TestDriverFunction();
     }
     return 0 ;
 }
