@@ -4,17 +4,14 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../source/ArqSwAutomotriz_ECM.c \
 ../source/mtb.c \
 ../source/semihost_hardfault.c 
 
 OBJS += \
-./source/ArqSwAutomotriz_ECM.o \
 ./source/mtb.o \
 ./source/semihost_hardfault.o 
 
 C_DEPS += \
-./source/ArqSwAutomotriz_ECM.d \
 ./source/mtb.d \
 ./source/semihost_hardfault.d 
 
