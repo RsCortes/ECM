@@ -6,3 +6,7 @@
  */
 
 
+void TestDriverFunction( void )
+{
+	__asm("nop");
+}

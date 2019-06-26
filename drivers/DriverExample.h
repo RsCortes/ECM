@@ -8,6 +8,6 @@
 #ifndef DRIVEREXAMPLE_H_
 #define DRIVEREXAMPLE_H_
 
-
+void TestDriverFunction( void );
 
 #endif /* DRIVEREXAMPLE_H_ */
