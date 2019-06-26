@@ -47,5 +47,4 @@ product: Peripherals v1.0
  */
 void BOARD_InitBootPeripherals(void) {
 	/* The user initialization should be placed here */
-	/*GUSITO SALUDOS DESDE MARTE
 }
