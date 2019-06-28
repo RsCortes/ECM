@@ -18,7 +18,6 @@
  * VARIABLES
  ******************************************************************************/
 flexcan_fd_frame_t CAN_txFrame, CAN_rxFrame;
-static uint8_t CruiseControlSpeed = 0;
 
 void FLEXCAN_Initialization(flexcan_mb_transfer_t *CAN_txXfer, flexcan_mb_transfer_t *CAN_rxXfer)
 {
