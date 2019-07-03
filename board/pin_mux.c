@@ -36,6 +36,7 @@ void BOARD_InitBootPins(void) {
 #define PIN1_IDX                         1u
 #define PIN2_IDX                         2u
 #define PIN3_IDX                         3u
+#define PIN4_IDX                         4u
 #define PIN6_IDX                         6u   /*!< Pin number for pin 6 in a port */
 #define PIN7_IDX                         7u   /*!< Pin number for pin 7 in a port */
 #define PIN18_IDX                        18u
@@ -71,6 +72,9 @@ void BOARD_InitPins(void) {
   PORT_SetPinMux(PORTB, PIN3_IDX, kPORT_PinDisabledOrAnalog);		/* PORTB3 is configured as ADC0_SE2 */
   PORT_SetPinMux(PORTB, PIN18_IDX, kPORT_PinDisabledOrAnalog);		/* PORTB18 is configured as ADC0_SE4 */
   PORT_SetPinMux(PORTC, PIN1_IDX, kPORT_MuxAsGpio);					/* PORTc1 is configured as GPIO_OUT */
+  PORT_SetPinMux(PORTC, PIN3_IDX, kPORT_MuxAlt9); 		            /* PORTC3 is configured as CAN0_TX */
+  PORT_SetPinMux(PORTC, PIN4_IDX, kPORT_MuxAlt9); 					/* PORTC4 is configured as CAN0_RX */
+
 
   PORT_SetPinMux(PORTC, PIN6_IDX, kPORT_MuxAlt4);            /* PORTC6 (pin 42) is configured as LPUART0_RX */
   PORT_SetPinMux(PORTC, PIN7_IDX, kPORT_MuxAlt4);            /* PORTC7 (pin 43) is configured as LPUART0_TX */
