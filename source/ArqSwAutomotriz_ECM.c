@@ -69,9 +69,7 @@ volatile bool CAN_txComplete = false;
 volatile bool CAN_rxComplete = false;
 flexcan_handle_t flexcanHandle;
 
-static adc16_channel_config_t adc8ChannelConfigStruct;
-
-//static uint8_t ADC8_u8ConversionValue = 0;
+static uint8_t ADC8_u8ConversionValue = 0;
 
 /*******************************************************************************
  * Code
