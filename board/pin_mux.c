@@ -32,18 +32,6 @@ void BOARD_InitBootPins(void) {
     BOARD_InitPins();
 }
 
-#define PIN0_IDX                         0u
-#define PIN1_IDX                         1u
-#define PIN2_IDX                         2u
-#define PIN3_IDX                         3u
-#define PIN4_IDX                         4u
-#define PIN6_IDX                         6u   /*!< Pin number for pin 6 in a port */
-#define PIN7_IDX                         7u   /*!< Pin number for pin 7 in a port */
-#define PIN18_IDX                        18u
-#define SOPT5_LPUART0ODE_DISABLED     0x00u   /*!< LPUART0 Open Drain Enable: Open drain is disabled on LPUART0. */
-#define SOPT5_LPUART0RXSRC_LPUART_RX  0x00u   /*!< LPUART0 Receive Data Source Select: LPUART_RX pin */
-#define SOPT5_LPUART0TXSRC_LPUART_TX  0x00u   /*!< LPUART0 Transmit Data Source Select: LPUART0_TX pin */
-
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
@@ -60,11 +48,42 @@ BOARD_InitPins:
  * Description   : Configures pin routing and optionally pin electrical features.
  *
  *END**************************************************************************/
-void BOARD_InitPins(void) {
-  CLOCK_EnableClock(kCLOCK_PortA);                          		/* Port A Clock Gate Control: Clock enabled */
-  CLOCK_EnableClock(kCLOCK_PortB);									/* Port B Clock Gate Control: Clock enabled */
-  CLOCK_EnableClock(kCLOCK_PortC);									/* Port C Clock Gate Control: Clock enabled */
+void BOARD_InitPins(void)
+{
+    /* Port A Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortA);
+    /* Port B Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortB);
+    /* Port C Clock Gate Control: Clock enabled */
+    CLOCK_EnableClock(kCLOCK_PortC);
 
+    /* PORTA16 (pin 4) is configured as PTA16 */
+    PORT_SetPinMux(BOARD_INITPINS_LED_GREEN_PORT, BOARD_INITPINS_LED_GREEN_PIN, kPORT_MuxAsGpio);
+
+    /* PORTB2 (pin 18) is configured as PTB2 */
+    PORT_SetPinMux(BOARD_INITPINS_LED_BLUE_PORT, BOARD_INITPINS_LED_BLUE_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC1 (pin 37) is configured as PTC1 */
+    PORT_SetPinMux(BOARD_INITPINS_LED_RED_PORT, BOARD_INITPINS_LED_RED_PIN, kPORT_MuxAsGpio);
+
+    /* PORTC6 (pin 42) is configured as LPUART0_RX */
+    PORT_SetPinMux(BOARD_INITPINS_DEBUG_UART_RX_PORT, BOARD_INITPINS_DEBUG_UART_RX_PIN, kPORT_MuxAlt4);
+
+    /* PORTC7 (pin 43) is configured as LPUART0_TX */
+    PORT_SetPinMux(BOARD_INITPINS_DEBUG_UART_TX_PORT, BOARD_INITPINS_DEBUG_UART_TX_PIN, kPORT_MuxAlt4);
+
+    SIM->SOPT5 = ((SIM->SOPT5 &
+                   /* Mask bits to zero which are setting */
+                   (~(SIM_SOPT5_LPUART0TXSRC_MASK | SIM_SOPT5_LPUART0RXSRC_MASK | SIM_SOPT5_LPUART0ODE_MASK)))
+
+                  /* LPUART0 Transmit Data Source Select: LPUART0_TX pin. */
+                  | SIM_SOPT5_LPUART0TXSRC(SOPT5_LPUART0TXSRC_LPUART_TX)
+
+                  /* LPUART0 Receive Data Source Select: LPUART_RX pin. */
+                  | SIM_SOPT5_LPUART0RXSRC(SOPT5_LPUART0RXSRC_LPUART_RX)
+
+                  /* LPUART0 Open Drain Enable: Open drain is disabled on LPUART0. */
+                  | SIM_SOPT5_LPUART0ODE(SOPT5_LPUART0ODE_DISABLED));
 }
 
 /*******************************************************************************

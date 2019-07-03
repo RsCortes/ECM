@@ -39,6 +39,12 @@
 #include "clock_config.h"
 #include "MKW36Z4.h"
 #include "fsl_debug_console.h"
+#include "SysTasks.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "timers.h"
+#include "semphr.h"
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
@@ -66,11 +72,16 @@ int main(void) {
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitBootPeripherals();
-  	/* Init FSL debug console. */
+	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
+    CreateSystemTasks();
+
+    /* Start scheduling. */
+    vTaskStartScheduler();
+
     while(1) {
-    	__asm("nop");
+
     }
     return 0 ;
 }
