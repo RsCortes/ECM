@@ -32,18 +32,6 @@ void BOARD_InitBootPins(void) {
     BOARD_InitPins();
 }
 
-#define PIN0_IDX                         0u
-#define PIN1_IDX                         1u
-#define PIN2_IDX                         2u
-#define PIN3_IDX                         3u
-#define PIN4_IDX                         4u
-#define PIN6_IDX                         6u   /*!< Pin number for pin 6 in a port */
-#define PIN7_IDX                         7u   /*!< Pin number for pin 7 in a port */
-#define PIN18_IDX                        18u
-#define SOPT5_LPUART0ODE_DISABLED     0x00u   /*!< LPUART0 Open Drain Enable: Open drain is disabled on LPUART0. */
-#define SOPT5_LPUART0RXSRC_LPUART_RX  0x00u   /*!< LPUART0 Receive Data Source Select: LPUART_RX pin */
-#define SOPT5_LPUART0TXSRC_LPUART_TX  0x00u   /*!< LPUART0 Transmit Data Source Select: LPUART0_TX pin */
-
 /*
  * TEXT BELOW IS USED AS SETTING FOR TOOLS *************************************
 BOARD_InitPins:
@@ -66,26 +54,15 @@ void BOARD_InitPins(void) {
   CLOCK_EnableClock(kCLOCK_PortC);									/* Port C Clock Gate Control: Clock enabled */
 
   PORT_SetPinMux(PORTA, PIN0_IDX, kPORT_MuxAlt5);					/* PORTA0 is configured as TPM1_CH0 */
-  PORT_SetPinMux(PORTA, PIN1_IDX, kPORT_MuxAlt5);					/* PORTA1 is configured as TPM1_CH1 */
-  PORT_SetPinMux(PORTB, PIN1_IDX, kPORT_PinDisabledOrAnalog);		/* PORTB1 is configured as ADC0_SE1 */
-  PORT_SetPinMux(PORTB, PIN2_IDX, kPORT_PinDisabledOrAnalog);		/* PORTB2 is configured as ADC0_SE3 */
-  PORT_SetPinMux(PORTB, PIN3_IDX, kPORT_PinDisabledOrAnalog);		/* PORTB3 is configured as ADC0_SE2 */
-  PORT_SetPinMux(PORTB, PIN18_IDX, kPORT_PinDisabledOrAnalog);		/* PORTB18 is configured as ADC0_SE4 */
-  PORT_SetPinMux(PORTC, PIN1_IDX, kPORT_MuxAsGpio);					/* PORTc1 is configured as GPIO_OUT */
-  PORT_SetPinMux(PORTC, PIN3_IDX, kPORT_MuxAlt9); 		            /* PORTC3 is configured as CAN0_TX */
-  PORT_SetPinMux(PORTC, PIN4_IDX, kPORT_MuxAlt9); 					/* PORTC4 is configured as CAN0_RX */
+//  PORT_SetPinMux(PORTA, PIN1_IDX, kPORT_MuxAlt5);					/* PORTA1 is configured as TPM1_CH1 */
+//  PORT_SetPinMux(PORTB, PIN1_IDX, kPORT_PinDisabledOrAnalog);		/* PORTB1 is configured as ADC0_SE1 */
+//  PORT_SetPinMux(PORTB, PIN2_IDX, kPORT_PinDisabledOrAnalog);		/* PORTB2 is configured as ADC0_SE3 */
+//  PORT_SetPinMux(PORTB, PIN3_IDX, kPORT_PinDisabledOrAnalog);		/* PORTB3 is configured as ADC0_SE2 */
+//  PORT_SetPinMux(PORTB, PIN18_IDX, kPORT_PinDisabledOrAnalog);		/* PORTB18 is configured as ADC0_SE4 */
+//  PORT_SetPinMux(PORTC, PIN1_IDX, kPORT_MuxAsGpio);					/* PORTc1 is configured as GPIO_OUT */
+//  PORT_SetPinMux(PORTC, PIN3_IDX, kPORT_MuxAlt9); 		            /* PORTC3 is configured as CAN0_TX */
+//  PORT_SetPinMux(PORTC, PIN4_IDX, kPORT_MuxAlt9); 					/* PORTC4 is configured as CAN0_RX */
 
-
-  PORT_SetPinMux(PORTC, PIN6_IDX, kPORT_MuxAlt4);            /* PORTC6 (pin 42) is configured as LPUART0_RX */
-  PORT_SetPinMux(PORTC, PIN7_IDX, kPORT_MuxAlt4);            /* PORTC7 (pin 43) is configured as LPUART0_TX */
-
-
-  SIM->SOPT5 = ((SIM->SOPT5 &
-    (~(SIM_SOPT5_LPUART0TXSRC_MASK | SIM_SOPT5_LPUART0RXSRC_MASK | SIM_SOPT5_LPUART0ODE_MASK))) /* Mask bits to zero which are setting */
-      | SIM_SOPT5_LPUART0TXSRC(SOPT5_LPUART0TXSRC_LPUART_TX) /* LPUART0 Transmit Data Source Select: LPUART0_TX pin */
-      | SIM_SOPT5_LPUART0RXSRC(SOPT5_LPUART0RXSRC_LPUART_RX) /* LPUART0 Receive Data Source Select: LPUART_RX pin */
-      | SIM_SOPT5_LPUART0ODE(SOPT5_LPUART0ODE_DISABLED)      /* LPUART0 Open Drain Enable: Open drain is disabled on LPUART0. */
-    );
 }
 
 /*******************************************************************************

@@ -10,6 +10,17 @@
 #ifndef _PIN_MUX_H_
 #define _PIN_MUX_H_
 
+#define PIN0_IDX                         0u
+#define PIN1_IDX                         1u
+#define PIN2_IDX                         2u
+#define PIN3_IDX                         3u
+#define PIN4_IDX                         4u
+#define PIN6_IDX                         6u   /*!< Pin number for pin 6 in a port */
+#define PIN7_IDX                         7u   /*!< Pin number for pin 7 in a port */
+#define PIN18_IDX                        18u
+#define SOPT5_LPUART0ODE_DISABLED     0x00u   /*!< LPUART0 Open Drain Enable: Open drain is disabled on LPUART0. */
+#define SOPT5_LPUART0RXSRC_LPUART_RX  0x00u   /*!< LPUART0 Receive Data Source Select: LPUART_RX pin */
+#define SOPT5_LPUART0TXSRC_LPUART_TX  0x00u   /*!< LPUART0 Transmit Data Source Select: LPUART0_TX pin */
 
 /*******************************************************************************
  * Definitions

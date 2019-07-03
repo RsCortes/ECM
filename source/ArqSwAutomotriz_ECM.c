@@ -106,8 +106,6 @@ int main(void) {
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitBootPeripherals();
-  	/* Init FSL debug console. */
-    BOARD_InitDebugConsole();
 
     flexcan_mb_transfer_t CAN_txXfer;
     flexcan_mb_transfer_t CAN_rxXfer;
@@ -118,8 +116,6 @@ int main(void) {
     FLEXCAN_Initialization(&CAN_txXfer, &CAN_rxXfer);
 
     adc8ChannelConfigStruct = ADC_Initialization();
-
-
 
     FLEXCAN_TransferCreateHandle(EXAMPLE_CAN, &flexcanHandle, flexcan_callback, NULL);
 
