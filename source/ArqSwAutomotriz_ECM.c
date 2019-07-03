@@ -32,6 +32,11 @@
  * @file    ArqSwAutomotriz_ECM.c
  * @brief   Application entry point.
  */
+
+/*******************************************************************************
+ * Imported drivers
+ ******************************************************************************/
+
 #include <stdio.h>
 #include "board.h"
 #include "peripherals.h"
@@ -41,6 +46,9 @@
 #include "fsl_debug_console.h"
 #include "DriverExample.h"
 #include "FLEXCAN.h"
+#include "ADC.h"
+#include "fsl_adc8.h"
+
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
@@ -60,6 +68,8 @@ static void flexcan_callback(CAN_Type *base, flexcan_handle_t *handle, status_t 
 volatile bool CAN_txComplete = false;
 volatile bool CAN_rxComplete = false;
 flexcan_handle_t flexcanHandle;
+
+static uint8_t ADC8_u8ConversionValue = 0;
 
 /*******************************************************************************
  * Code
@@ -88,8 +98,6 @@ static void flexcan_callback(CAN_Type *base, flexcan_handle_t *handle, status_t 
     }
 }
 
-
-
 int main(void) {
 
   	/* Init board hardware. */
@@ -102,7 +110,14 @@ int main(void) {
     flexcan_mb_transfer_t CAN_txXfer;
     flexcan_mb_transfer_t CAN_rxXfer;
 
+   /*
+    *       INITIALIZATION
+    */
     FLEXCAN_Initialization(&CAN_txXfer, &CAN_rxXfer);
+
+    adc8ChannelConfigStruct = ADC_Initialization();
+
+
 
     FLEXCAN_TransferCreateHandle(EXAMPLE_CAN, &flexcanHandle, flexcan_callback, NULL);
 
