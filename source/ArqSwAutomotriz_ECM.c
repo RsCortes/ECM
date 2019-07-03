@@ -44,11 +44,12 @@
 #include "clock_config.h"
 #include "MKW36Z4.h"
 #include "fsl_debug_console.h"
-#include "DriverExample.h"
-#include "FLEXCAN.h"
-#include "ADC.h"
-#include "fsl_adc8.h"
-
+#include "SysTasks.h"
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+#include "timers.h"
+#include "semphr.h"
 /* TODO: insert other include files here. */
 
 /* TODO: insert other definitions and declarations here. */
@@ -60,43 +61,17 @@
 /*******************************************************************************
  * Prototypes
  ******************************************************************************/
-static void flexcan_callback(CAN_Type *base, flexcan_handle_t *handle, status_t status, uint32_t result, void *userData);
+
 
 /*********************************************************
  * Variables
  *********************************************************/
-volatile bool CAN_txComplete = false;
-volatile bool CAN_rxComplete = false;
-flexcan_handle_t flexcanHandle;
 
 static uint8_t ADC8_u8ConversionValue = 0;
 
 /*******************************************************************************
  * Code
  ******************************************************************************/
-static void flexcan_callback(CAN_Type *base, flexcan_handle_t *handle, status_t status, uint32_t result, void *userData)
-{
-    switch (status)
-    {
-        /* Process FlexCAN Rx event. */
-        case kStatus_FLEXCAN_RxIdle:
-            if (CAN_RX_MESSAGE_BUFFER_NUM == result)
-            {
-                CAN_rxComplete = true;
-            }
-            break;
-
-        /* Process FlexCAN Tx event. */
-        case kStatus_FLEXCAN_TxIdle:
-            if (CAN_TX_MESSAGE_BUFFER_NUM == result)
-            {
-                CAN_txComplete = true;
-            }
-            break;
-        default:
-            break;
-    }
-}
 
 int main(void) {
 
@@ -104,53 +79,16 @@ int main(void) {
     BOARD_InitBootPins();
     BOARD_InitBootClocks();
     BOARD_InitBootPeripherals();
-  	/* Init FSL debug console. */
+	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
-    flexcan_mb_transfer_t CAN_txXfer;
-    flexcan_mb_transfer_t CAN_rxXfer;
+    CreateSystemTasks();
 
-   /*
-    *       INITIALIZATION
-    */
-    FLEXCAN_Initialization(&CAN_txXfer, &CAN_rxXfer);
-
-    adc8ChannelConfigStruct = ADC_Initialization();
-
-
-
-    FLEXCAN_TransferCreateHandle(EXAMPLE_CAN, &flexcanHandle, flexcan_callback, NULL);
-
-    FLEXCAN_TransferFDReceiveNonBlocking(EXAMPLE_CAN, &flexcanHandle, &CAN_rxXfer);
-
-
+    /* Start scheduling. */
+    vTaskStartScheduler();
 
     while(1) {
-        /*Calling Driver Test*/
-    	TestDriverFunction();
-    	//A continuacion, un ejemplo de como manipular los datos de CAN, como el como recibir, y como mandar datos
-    	/*if(CAN_rxComplete == true)
-    	{
-    		CAN_rxXfer.framefd->dataWord[0] == MENSAJE SE RECIBE AQUI;
-    		CAN_rxComplete = false;
-			FLEXCAN_TransferFDReceiveNonBlocking(EXAMPLE_CAN, &flexcanHandle, &CAN_rxXfer);
-    	}
-    	else if((CAN_rxComplete == false)) NO RECIBIO MENSAJE
-    	{
-			CAN_rxComplete = false;
-			FLEXCAN_TransferFDReceiveNonBlocking(EXAMPLE_CAN, &flexcanHandle, &CAN_rxXfer);
 
-			CAN_txXfer.framefd->dataWord[0] = MENSAJE A ENVIAR AQUI;  COMO ENVIAR DATOS
-			CAN_txXfer.framefd->id = FLEXCAN_ID_STD(0x123);
-			CAN_txComplete = false;
-			FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &CAN_txXfer);
-    	}
-    	else CASO EXTREMO, NO DEBE DE LLEGAR AQUI
-    	{
-    		CAN_rxComplete = false;
-       		FLEXCAN_TransferFDReceiveNonBlocking(EXAMPLE_CAN, &flexcanHandle, &CAN_rxXfer);
-    	}
-    	*/
     }
     return 0 ;
 }
