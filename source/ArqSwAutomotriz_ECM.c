@@ -70,7 +70,7 @@ int main(void) {
     BOARD_InitDebugConsole();
 
     while(1) {
-
+    	__asm("nop");
     }
     return 0 ;
 }
