@@ -4,8 +4,10 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../drivers/ADC.c \
 ../drivers/DriverExample.c \
 ../drivers/FLEXCAN.c \
+../drivers/fsl_adc8.c \
 ../drivers/fsl_clock.c \
 ../drivers/fsl_common.c \
 ../drivers/fsl_flash.c \
@@ -17,8 +19,10 @@ C_SRCS += \
 ../drivers/fsl_smc.c 
 
 OBJS += \
+./drivers/ADC.o \
 ./drivers/DriverExample.o \
 ./drivers/FLEXCAN.o \
+./drivers/fsl_adc8.o \
 ./drivers/fsl_clock.o \
 ./drivers/fsl_common.o \
 ./drivers/fsl_flash.o \
@@ -30,8 +34,10 @@ OBJS += \
 ./drivers/fsl_smc.o 
 
 C_DEPS += \
+./drivers/ADC.d \
 ./drivers/DriverExample.d \
 ./drivers/FLEXCAN.d \
+./drivers/fsl_adc8.d \
 ./drivers/fsl_clock.d \
 ./drivers/fsl_common.d \
 ./drivers/fsl_flash.d \
