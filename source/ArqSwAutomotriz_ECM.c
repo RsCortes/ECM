@@ -80,6 +80,8 @@ int main(void) {
 	/* Init FSL debug console. */
     BOARD_InitDebugConsole();
 
+    InitSystem();
+
     CreateSystemTasks();
 
     /* Start scheduling. */
@@ -90,5 +92,3 @@ int main(void) {
     }
     return 0 ;
 }
-
-
