@@ -6,6 +6,8 @@
  */
 
 #include "CAM.h"
+#include "ADC.h"
+
 
 /**
  * @name:   CAM_Containter10ms
@@ -16,6 +18,7 @@
 void CAM_Containter10ms( void )
 {
 	__asm("nop");
+
 }
 
 /**
@@ -26,7 +29,7 @@ void CAM_Containter10ms( void )
  */
 void CAM_Containter20ms( void )
 {
-	__asm("nop");
+	ADC_ReadAdcValue();
 }
 
 /**

@@ -465,7 +465,7 @@ void ADC16_ClearStatusFlags(ADC_Type *base, uint32_t mask);
  * @param channelGroup  Channel group index.
  * @param config        Pointer to the "adc16_channel_config_t" structure for the conversion channel.
  */
-void ADC16_SetChannelConfig(ADC_Type *base, uint32_t channelGroup, const adc16_channel_config_t *config);
+void ADC16_vSoftwareTrigger(ADC_Type *base, uint32_t channelGroup, uint32_t config);
 
 /*!
  * @brief  Gets the conversion value.

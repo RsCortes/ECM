@@ -8,14 +8,18 @@
 #ifndef OWN_DRIVERS_ADC_H_
 #define OWN_DRIVERS_ADC_H_
 
-#include "fsl_adc8.h"
+#include "fsl_adc16.h"
 
-#define ADC8_BASE ADC0
-#define ADC8_CHANNEL_GROUP 0U
-#define ADC8_USER_CHANNEL 5U /* Temperature Sensor */
+#define ADC16_BASE ADC0
+#define ADC16_CHANNEL_GROUP 0U
+#define ADC16_EmissionRead 1U
+#define ADC16_RPMRead 3U
+#define ADC16_TemperatureRead 2U
+#define ADC16_BatteryRead 4U
 
-#define ADC8_IRQn ADC0_IRQn
 
-adc16_channel_config_t ADC_Initialization(void);
+void ADC_Initialization(void);
+void ADC_ReadAdcValue(uint8_t ADC_u8Channel);
+
 
 #endif /* OWN_DRIVERS_ADC_H_ */
