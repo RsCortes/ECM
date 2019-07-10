@@ -87,7 +87,7 @@ void ADC_ReadAdcValue(uint8_t ADC_u8Channel)
 
 uint16_t ADC_u16GetAdcValue(uint8_t u8Sensor)
 {
-	uint16 u16ReturnValue = 0;
+	uint16_t u16ReturnValue = 0;
 	switch(u8Sensor)
 	{
 	case ADC16_EmissionRead:
