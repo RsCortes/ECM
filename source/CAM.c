@@ -29,7 +29,7 @@ void CAM_Containter10ms( void )
  */
 void CAM_Containter20ms( void )
 {
-	ADC_ReadAdcValue(1);
+	ADC_ReadAdcValues();
 }
 
 /**

@@ -39,11 +39,12 @@ void ADC_Initialization(void)
  * 	invalid parameters:		[0,[5-255])
  * @return: None
  */
-void ADC_ReadAdcValue(uint8_t ADC_u8Channel)
+void ADC_ReadAdcValues()
 {
-	if(ADC_u8Channel < 5 && ADC_u8Channel != 0)
+
+	for(uint8_t u8ToggleAdc = 1u ; u8ToggleAdc <5u ; u8ToggleAdc++)
 	{
-		switch(ADC_u8Channel)
+		switch(u8ToggleAdc)
 		{
 			case ADC16_EmissionRead:
 				ADC16_vSoftwareTrigger(ADC16_BASE, ADC16_CHANNEL_GROUP, ADC16_EmissionRead);
@@ -74,14 +75,9 @@ void ADC_ReadAdcValue(uint8_t ADC_u8Channel)
 				break;
 
 			default:
-				ADC16_vSoftwareTrigger(ADC16_BASE, ADC16_CHANNEL_GROUP, ADC16_EmissionRead);  /*Default, in case of 0*/
+				/*Default, always needed*/
 				break;
 		}
-	}
-	else
-	{
-		__asm("nop");
-		/*Parameter value not in range*/
 	}
 }
 

@@ -19,7 +19,9 @@
 
 
 void ADC_Initialization(void);
-void ADC_ReadAdcValue(uint8_t ADC_u8Channel);
+void ADC_ReadAdcValues();
+uint16_t ADC_u16GetAdcValue(uint8_t u8Sensor);
+
 
 
 #endif /* OWN_DRIVERS_ADC_H_ */
