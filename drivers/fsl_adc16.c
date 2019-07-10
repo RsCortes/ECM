@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: BSD-3-Clause
  */
 
-#include <fsl_adc8.h>
+#include "fsl_adc16.h"
 
 /*******************************************************************************
  * Prototypes
@@ -118,11 +118,11 @@ void ADC16_GetDefaultConfig(adc16_config_t *config)
 {
     assert(NULL != config);
 
-    config->referenceVoltageSource = kADC16_ReferenceVoltageSourceValt;
+    config->referenceVoltageSource = kADC16_ReferenceVoltageSourceVref;
     config->clockSource = kADC16_ClockSourceAsynchronousClock;
     config->enableAsynchronousClock = true;
     config->clockDivider = kADC16_ClockDivider8;
-    config->resolution = kADC16_ResolutionSE8Bit;
+    config->resolution = kADC16_Resolution8or9Bit;
     config->longSampleMode = kADC16_LongSampleDisabled;
     config->enableHighSpeed = false;
     config->enableLowPower = false;
@@ -133,7 +133,7 @@ void ADC16_GetDefaultConfig(adc16_config_t *config)
 status_t ADC16_DoAutoCalibration(ADC_Type *base)
 {
     bool bHWTrigger = false;
-    volatile uint32_t  tmp32; /* 'volatile' here is for the dummy read of ADCx_R[0] register. */
+    volatile uint32_t tmp32; /* 'volatile' here is for the dummy read of ADCx_R[0] register. */
     status_t status = kStatus_Success;
 
     /* The calibration would be failed when in hardwar mode.
@@ -312,26 +312,11 @@ void ADC16_ClearStatusFlags(ADC_Type *base, uint32_t mask)
 #endif /* FSL_FEATURE_ADC16_HAS_CALIBRATION */
 }
 
-void ADC16_SetChannelConfig(ADC_Type *base, uint32_t channelGroup, const adc16_channel_config_t *config)
+void ADC16_vSoftwareTrigger(ADC_Type *base, uint32_t channelGroup, uint32_t config)
 {
-    assert(channelGroup < ADC_SC1_COUNT);
-    assert(NULL != config);
+	//AQUI
 
-    uint32_t sc1 = ADC_SC1_ADCH(config->channelNumber); /* Set the channel number. */
-
-#if defined(FSL_FEATURE_ADC16_HAS_DIFF_MODE) && FSL_FEATURE_ADC16_HAS_DIFF_MODE
-    /* Enable the differential conversion. */
-    if (config->enableDifferentialConversion)
-    {
-        sc1 |= ADC_SC1_DIFF_MASK;
-    }
-#endif /* FSL_FEATURE_ADC16_HAS_DIFF_MODE */
-    /* Enable the interrupt when the conversion is done. */
-    if (config->enableInterruptOnConversionCompleted)
-    {
-        sc1 |= ADC_SC1_AIEN_MASK;
-    }
-    base->SC1[channelGroup] = sc1;
+	base->SC1[channelGroup] = ADC_SC1_ADCH(config);
 }
 
 uint32_t ADC16_GetChannelStatusFlags(ADC_Type *base, uint32_t channelGroup)
