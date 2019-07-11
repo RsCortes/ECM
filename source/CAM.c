@@ -7,6 +7,7 @@
 
 #include "CAM.h"
 #include "ADC.h"
+#include "APP.h"
 
 
 /**
@@ -30,6 +31,7 @@ void CAM_Containter10ms( void )
 void CAM_Containter20ms( void )
 {
 	ADC_ReadAdcValues();
+	CAN_SendSensorValues();
 }
 
 /**
