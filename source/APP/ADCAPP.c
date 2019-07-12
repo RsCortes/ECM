@@ -5,7 +5,7 @@
  *      Author: Hector
  */
 
-#include "APP.h"
+#include <ADCAPP.h>
 #include "ADC.h"
 
 void CAN_SendSensorValues()

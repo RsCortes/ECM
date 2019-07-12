@@ -5,9 +5,9 @@
  *      Author: pmg
  */
 
+#include <ADCAPP.h>
 #include "CAM.h"
 #include "ADC.h"
-#include "APP.h"
 
 
 /**

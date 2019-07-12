@@ -5,8 +5,8 @@
  *      Author: Hector
  */
 
-#ifndef APP_H_
-#define APP_H_
+#ifndef ADCAPP_H_
+#define ADCAPP_H_
 
 #include "stdint.h"
 
@@ -16,4 +16,4 @@ uint16_t ADC_TemperatureData();
 uint16_t ADC_RpmData();
 uint16_t ADC_BatteryData();
 
-#endif /* APP_H_ */
+#endif /* ADCAPP_H_ */
