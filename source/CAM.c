@@ -18,6 +18,8 @@
  */
 void CAM_Containter10ms( void )
 {
+	//vFUN_FlexCANReceiveNonBlocking();
+	vFUN_CheckIfReceivedAMessage();
 	__asm("nop");
 
 }
