@@ -88,6 +88,8 @@
 									<listOptionValue builtIn="false" value="../"/>
 									<listOptionValue builtIn="false" value="../freertos"/>
 									<listOptionValue builtIn="false" value="../drivers"/>
+									<listOptionValue builtIn="false" value="../source/CAN_Module"/>
+									<listOptionValue builtIn="false" value="../source/ADC_Module"/>
 									<listOptionValue builtIn="false" value="../source/APP"/>
 									<listOptionValue builtIn="false" value="../CMSIS"/>
 									<listOptionValue builtIn="false" value="../utilities"/>

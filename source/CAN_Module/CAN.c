@@ -65,7 +65,7 @@ typedef struct
 
 typedef struct
 {
-	uint8_t u8_BufferSendEmissions [MIDDLELAYER_BUFFER_LENGTH];
+	//uint8_t u8_BufferSendEmissions [MIDDLELAYER_BUFFER_LENGTH];
 	uint8_t u8_BufferSendEmgcyStop [MIDDLELAYER_BUFFER_LENGTH];
 	uint8_t u8_BufferSendRPM [MIDDLELAYER_BUFFER_LENGTH];
 	uint8_t u8_BufferSendFan [MIDDLELAYER_BUFFER_LENGTH];
@@ -196,31 +196,11 @@ void vFUN_FlexCANConfig ( void )
 /*!
  * @brief FlexCAN send data function
  */
-void vFUN_FlexCANSendNonBlocking ( void )
+void vFUN_FlexCANSendNonBlocking ( uint32_t u32Module, uint32_t Value1 )
 {
-	memcpy(&txFrame.dataWord[0], &pst_SendAppBuffers->u8_BufferSendEmissions[0], MIDDLELAYER_BUFFER_LENGTH);
+	txFrame.dataWord[0] = u32Module;
+	txFrame.dataWord[1] = Value1;
 	FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
-	memset(&txFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-
-	memcpy(&txFrame.dataWord[0], &pst_SendAppBuffers->u8_BufferSendEmgcyStop[0], MIDDLELAYER_BUFFER_LENGTH);
-	FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
-	memset(&txFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-
-	memcpy(&txFrame.dataWord[0], &pst_SendAppBuffers->u8_BufferSendRPM[0], MIDDLELAYER_BUFFER_LENGTH);
-	FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
-	memset(&txFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-
-	memcpy(&txFrame.dataWord[0], &pst_SendAppBuffers->u8_BufferSendFan[0], MIDDLELAYER_BUFFER_LENGTH);
-	FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
-	memset(&txFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-
-	memcpy(&txFrame.dataWord[0], &pst_SendAppBuffers->u8_BufferSendTemperature[0], MIDDLELAYER_BUFFER_LENGTH);
-	FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
-	memset(&txFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-
-	memcpy(&txFrame.dataWord[0], &pst_SendAppBuffers->u8_BufferSendThrottle[0], MIDDLELAYER_BUFFER_LENGTH);
-	FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
-	memset(&txFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
 }
 
 /*!
@@ -228,43 +208,9 @@ void vFUN_FlexCANSendNonBlocking ( void )
  */
 void vFUN_FlexCANReceiveNonBlocking ( void )
 {
-	if(rxComplete && (rxFrame.dataWord[0] == 65))
+	if(rxComplete)
 	{
-		memcpy(&u8_CANIncomingData[0], &rxFrame.dataWord[0], MIDDLELAYER_BUFFER_LENGTH);
-
-		switch( u8_CANIncomingData[2] )
-		{
-			case 0:
-				memcpy(&pst_ReceiveAppBuffers->u8_BufferRcvEmissions[0], &rxFrame.dataWord[0], MIDDLELAYER_BUFFER_LENGTH);
-				memset(&rxFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-				break;
-
-			case 1:
-				memcpy(&pst_ReceiveAppBuffers->u8_BufferRcvEmgcyStop[0], &rxFrame.dataWord[0], MIDDLELAYER_BUFFER_LENGTH);
-				memset(&rxFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-				break;
-
-			case 2:
-				memcpy(&pst_ReceiveAppBuffers->u8_BufferRcvRPM[0], &rxFrame.dataWord[0], MIDDLELAYER_BUFFER_LENGTH);
-				memset(&rxFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-				break;
-
-			case 3:
-				memcpy(&pst_ReceiveAppBuffers->u8_BufferRcvFan[0], &rxFrame.dataWord[0], MIDDLELAYER_BUFFER_LENGTH);
-				memset(&rxFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-				break;
-
-			case 4:
-				memcpy(&pst_ReceiveAppBuffers->u8_BufferRcvTemperature[0], &rxFrame.dataWord[0], MIDDLELAYER_BUFFER_LENGTH);
-				memset(&rxFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-				break;
-
-			case 5:
-				memcpy(&pst_ReceiveAppBuffers->u8_BufferRcvThrottle[0], &rxFrame.dataWord[0], MIDDLELAYER_BUFFER_LENGTH);
-				memset(&rxFrame.dataWord[0], 0, CAN_FD_BUFFER_LENGTH);
-				break;
-		}
-
+		//TODO Procesing
 		rxComplete = false;
 		FLEXCAN_TransferFDReceiveNonBlocking(EXAMPLE_CAN, &flexcanHandle, &rxXfer);
 	}
