@@ -5,6 +5,7 @@
  *      Author: pmg
  */
 
+#include <ADCAPP.h>
 #include "CAM.h"
 #include "ADC.h"
 
@@ -17,6 +18,8 @@
  */
 void CAM_Containter10ms( void )
 {
+	//vFUN_FlexCANReceiveNonBlocking();
+	vFUN_CheckIfReceivedAMessage();
 	__asm("nop");
 
 }
@@ -30,6 +33,7 @@ void CAM_Containter10ms( void )
 void CAM_Containter20ms( void )
 {
 	ADC_ReadAdcValues();
+	CAN_SendSensorValues();
 }
 
 /**

@@ -6,11 +6,14 @@
  */
 #include "SINI.h"
 #include "ADC.h"
+#include <CAN_Module/CAN.h>
 
 
 void SINI_vSystemInit ( void )
 {
 	/*!Add your Inits here*/
 	ADC_Initialization();
+	vFUN_FlexCANConfig();
+	vFUN_Start2Listen_FlexCAN();
 
 }

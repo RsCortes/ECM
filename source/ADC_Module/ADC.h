@@ -17,6 +17,8 @@
 #define ADC16_TemperatureRead 2U
 #define ADC16_BatteryRead 4U
 
+#define ADC16_RPMSensor 1U
+#define ADC16_TempSensor 2U
 
 void ADC_Initialization(void);
 void ADC_ReadAdcValues();
