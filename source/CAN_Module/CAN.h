@@ -56,11 +56,11 @@ typedef enum ApplicationBuffer{
 extern "C" {
 #endif // __cplusplus
 
-extern void vFUN_FlexCANConfig ( void );
-extern void vFUN_FlexCANSendNonBlocking ( uint32_t u32Module, uint32_t Value1 );
-extern void vFUN_FlexCANReceiveNonBlocking( void );
-extern void vFUN_Start2Listen_FlexCAN ( void );
-extern void vFUN_CheckIfReceivedAMessage (void);
+void vFUN_FlexCANConfig ( void );
+void vFUN_FlexCANSendNonBlocking ( uint32_t u32Module, uint32_t Value1 );
+void vFUN_FlexCANReceiveNonBlocking( void );
+void vFUN_Start2Listen_FlexCAN ( void );
+void vFUN_CheckIfReceivedAMessage (void);
 
 #if defined(__cplusplus)
 }

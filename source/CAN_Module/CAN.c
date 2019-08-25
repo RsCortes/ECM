@@ -99,11 +99,8 @@ volatile bool rxComplete = false;
 flexcan_handle_t flexcanHandle;
 flexcan_mb_transfer_t txXfer;
 flexcan_mb_transfer_t rxXfer;
-#if (defined(USE_CANFD) && USE_CANFD)
 flexcan_fd_frame_t txFrame;
 flexcan_fd_frame_t rxFrame;
-#endif
-
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 //                                   Static Variables Section
@@ -161,7 +158,7 @@ void vFUN_FlexCANConfig ( void )
 
 		FLEXCAN_GetDefaultConfig(&flexcanConfig);
 		flexcanConfig.clkSrc = kFLEXCAN_ClkSrcPeri;
-		flexcanConfig.enableLoopBack = true;
+		flexcanConfig.enableLoopBack = false;
 		FLEXCAN_FDInit(EXAMPLE_CAN, &flexcanConfig, EXAMPLE_CAN_CLK_FREQ, BYTES_IN_MB, false);
 
 		/* Setup Rx Message Buffer. */
@@ -198,8 +195,10 @@ void vFUN_FlexCANConfig ( void )
  */
 void vFUN_FlexCANSendNonBlocking ( uint32_t u32Module, uint32_t Value1 )
 {
-	txFrame.dataWord[0] = u32Module;
-	txFrame.dataWord[1] = Value1;
+
+	txFrame.dataWord[0] = 65; // u32Module;
+	txFrame.dataWord[1] = 0; //Value1;
+	txFrame.dataWord[1] = 66;
 	FLEXCAN_TransferFDSendNonBlocking(EXAMPLE_CAN, &flexcanHandle, &txXfer);
 }
 

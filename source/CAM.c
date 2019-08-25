@@ -5,11 +5,10 @@
  *      Author: pmg
  */
 
-#include <ADCAPP.h>
 #include "CAM.h"
 #include "ADC.h"
-
-
+#include "TPM.h"
+#include "CAN.h"
 /**
  * @name:   CAM_Containter10ms
  * @brief:  This function will contain the app that runs at 10 ms
@@ -33,7 +32,8 @@ void CAM_Containter10ms( void )
 void CAM_Containter20ms( void )
 {
 	ADC_ReadAdcValues();
-	CAN_SendSensorValues();
+	vFUN_FlexCANSendNonBlocking(1,1);
+	//CAN_SendSensorValues();
 }
 
 /**

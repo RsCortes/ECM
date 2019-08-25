@@ -13,7 +13,9 @@ void SINI_vSystemInit ( void )
 {
 	/*!Add your Inits here*/
 	ADC_Initialization();
+	TPM_Setup();
 	vFUN_FlexCANConfig();
 	vFUN_Start2Listen_FlexCAN();
+
 
 }
