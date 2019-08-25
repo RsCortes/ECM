@@ -7,6 +7,7 @@
 #include "SINI.h"
 #include "ADC.h"
 #include <CAN_Module/CAN.h>
+#include "TPM.h"
 
 
 void SINI_vSystemInit ( void )
@@ -14,8 +15,8 @@ void SINI_vSystemInit ( void )
 	/*!Add your Inits here*/
 	ADC_Initialization();
 	TPM_Setup();
-	vFUN_FlexCANConfig();
-	vFUN_Start2Listen_FlexCAN();
+	FlexCAN_Config();
+	FlexCAN_Start2Listen();
 
 
 }

@@ -151,7 +151,7 @@ static void flexcan_callback(CAN_Type *base, flexcan_handle_t *handle, status_t 
 /*!
  * @brief FlexCAN configuration function
  */
-void vFUN_FlexCANConfig ( void )
+void FlexCAN_Config ( void )
 {
 	flexcan_config_t flexcanConfig;
 	flexcan_rx_mb_config_t mbConfig;
@@ -193,7 +193,7 @@ void vFUN_FlexCANConfig ( void )
 /*!
  * @brief FlexCAN send data function
  */
-void vFUN_FlexCANSendNonBlocking ( uint32_t u32Module, uint32_t Value1 )
+void FlexCAN_SendNonBlocking ( uint32_t u32Module, uint32_t Value1 )
 {
 
 	txFrame.dataWord[0] = 65; // u32Module;
@@ -205,7 +205,7 @@ void vFUN_FlexCANSendNonBlocking ( uint32_t u32Module, uint32_t Value1 )
 /*!
  * @brief FlexCAN receive data function
  */
-void vFUN_FlexCANReceiveNonBlocking ( void )
+void FlexCAN_ReceiveNonBlocking ( void )
 {
 	if(rxComplete)
 	{
@@ -220,17 +220,17 @@ void vFUN_FlexCANReceiveNonBlocking ( void )
 	}
 }
 
-void vFUN_Start2Listen_FlexCAN ( void )
+void FlexCAN_Start2Listen ( void )
 {
 	rxComplete = false;
 	FLEXCAN_TransferFDReceiveNonBlocking(EXAMPLE_CAN, &flexcanHandle, &rxXfer);
 }
 
-void vFUN_CheckIfReceivedAMessage (void)
+void FlexCAN_CheckIfReceivedAMessage (void)
 {
 	if(rxComplete == true)
 	{
-		vFUN_FlexCANReceiveNonBlocking();
+		FlexCAN_ReceiveNonBlocking();
 	}
 	else
 	{

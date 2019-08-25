@@ -18,7 +18,7 @@
 void CAM_Containter10ms( void )
 {
 	//vFUN_FlexCANReceiveNonBlocking();
-	vFUN_CheckIfReceivedAMessage();
+	FlexCAN_CheckIfReceivedAMessage();
 	__asm("nop");
 
 }
@@ -32,7 +32,7 @@ void CAM_Containter10ms( void )
 void CAM_Containter20ms( void )
 {
 	ADC_ReadAdcValues();
-	vFUN_FlexCANSendNonBlocking(1,1);
+	FlexCAN_SendNonBlocking(1,1);
 	//CAN_SendSensorValues();
 }
 
